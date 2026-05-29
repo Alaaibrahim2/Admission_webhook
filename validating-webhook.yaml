@@ -1,0 +1,43 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+
+metadata:
+name: resource-limits-validator
+
+webhooks:
+
+* name: validator.webhook.demo
+
+  admissionReviewVersions:
+
+  * v1
+
+  sideEffects: None
+
+  failurePolicy: Fail
+
+  timeoutSeconds: 10
+
+  rules:
+
+  * operations:
+
+    * CREATE
+
+    apiGroups:
+
+    * ""
+
+    apiVersions:
+
+    * v1
+
+    resources:
+
+    * pods
+
+  clientConfig:
+
+  url: "https://YOUR_PUBLIC_IP:8443/validate"
+
+  caBundle: REPLACE_WITH_BASE64_CERT
